@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maycon Silva Aguiar</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-title"><a href="#" onclick="showPage('home',this);return false">Maycon Silva Aguiar</a></div>
+    <nav>
+      <ul class="site-nav">
+        <li><a href="#" class="active" onclick="showPage('home',this);return false">Início</a></li>
+        <li><a href="#" onclick="showPage('blog',this);return false">Blog</a></li>
+        <li><a href="#" onclick="showPage('quemsoueu',this);return false">Quem sou eu</a></li>
+        <li><a href="#" onclick="showPage('producao',this);return false">Produção acadêmica</a></li>
+        <li><a href="#" onclick="showPage('laboratorio',this);return false">Laboratório e pesquisa</a></li>
+        <li><a href="#" onclick="showPage('restrita',this);return false">Área restrita</a></li>
+        <li><a href="#" onclick="showPage('contato',this);return false">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- HOME -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="home-hero" style="max-width:1080px;margin:0 auto;padding:3.5rem 2.5rem 3rem;display:grid;grid-template-columns:340px 1fr;gap:4rem;align-items:start">
+
+    <div style="position:relative">
+      <img src="https://mayconsilvaaguiar.com/wp-content/uploads/2026/04/servletrecuperafoto.jpg" alt="Maycon Silva Aguiar" style="width:100%;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.12)">
+    </div>
+
+    <div>
+      <div style="font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem">Pesquisador · Professor · Servidor público</div>
+      <h1 style="font-family:var(--serif);font-size:2.4rem;font-weight:400;line-height:1.15;color:var(--accent);margin-bottom:1.5rem">Maycon Silva Aguiar</h1>
+
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.75rem">
+        <span class="blog-tag" style="background:var(--white);border:1px solid var(--border);padding:5px 13px;border-radius:20px">Linguística</span>
+        <span class="blog-tag" style="background:var(--white);border:1px solid var(--border);padding:5px 13px;border-radius:20px">Filosofia da Linguagem</span>
+        <span class="blog-tag" style="background:var(--white);border:1px solid var(--border);padding:5px 13px;border-radius:20px">Línguas Indígenas</span>
+        <span class="blog-tag" style="background:var(--white);border:1px solid var(--border);padding:5px 13px;border-radius:20px">Análise do Discurso</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem">
+        <div style="background:var(--white);border:1px solid var(--border2);border-radius:8px;padding:1rem 1.25rem">
+          <div style="font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem">Formação</div>
+          <div style="font-size:14px;color:var(--ink2);line-height:1.7">Mestre em Linguística (UFRJ, 2018) e em Filosofia (UERJ, 2019). Doutorando em Linguística pela UFRJ com defesa de tese prevista para agosto de 2026.</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border2);border-radius:8px;padding:1rem 1.25rem">
+          <div style="font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem">Atuação</div>
+          <div style="font-size:14px;color:var(--ink2);line-height:1.7">Servidor público e docente no Instituto Federal do Rio de Janeiro (IFRJ, Resende). Professor da Especialização em Literatura Infantil e Juvenil da Faculdade de Letras da UFRJ.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <a class="icon-link" href="http://lattes.cnpq.br" target="_blank">Currículo Lattes ↗</a>
+        <a class="icon-link" href="https://orcid.org" target="_blank">ORCID ↗</a>
+        <a class="icon-link" href="https://www.researchgate.net" target="_blank">ResearchGate ↗</a>
+        <a class="icon-link" href="https://academia.edu" target="_blank">Academia.edu ↗</a>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <span>IFRJ · Resende, RJ · mayconsilvaaguiar@gmail.com</span>
+    <span>© 2026 Maycon Silva Aguiar</span>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- BLOG -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page" id="page-blog">
+  <div class="section-page">
+    <h2 class="section-title">Blog</h2>
+    <p class="section-subtitle">Reflexões sobre linguística, filosofia e educação</p>
+
+    <div class="blog-layout">
+      <div class="blog-posts" id="blog-posts-list">
+        <!-- preenchido via JS -->
+      </div>
+
+      <aside class="blog-sidebar">
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Buscar posts</div>
+          <input class="sidebar-search" type="text" placeholder="Digite para buscar..." oninput="searchBlog(this.value)">
+        </div>
+
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Temas</div>
+          <div class="tag-cloud" id="blog-tag-cloud"></div>
+        </div>
+
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Seguir o blog</div>
+          <p style="font-size:12.5px;color:var(--ink3);margin-bottom:10px;line-height:1.5">Receba um e-mail quando houver novo post.</p>
+          <form class="follow-form" onsubmit="submitFollow(event)">
+            <input type="email" name="email" placeholder="seu@email.com" required>
+            <button type="submit">Seguir</button>
+          </form>
+          <div class="form-status" id="follow-status"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG — POST INDIVIDUAL -->
+<div class="page" id="page-blog-post">
+  <div class="section-page">
+    <div class="blog-detail" id="blog-post-detail"></div>
+
+    <div class="blog-detail comments-section" id="comments-section">
+      <h3 class="comments-title">Comentários</h3>
+      <p style="font-size:13px;color:var(--ink3);margin-bottom:1rem">Comentários podem ser feitos de forma anônima ou identificada.</p>
+      <div id="giscus-comments"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- QUEM SOU EU -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page" id="page-quemsoueu">
+  <div class="section-page">
+    <h2 class="section-title">Quem sou eu</h2>
+    <p class="section-subtitle">Conteúdo a ser definido pelo Maycon</p>
+    <div style="background:var(--white);border:1px dashed var(--border);border-radius:10px;padding:2rem;color:var(--ink3);font-size:14px;line-height:1.6">
+      Esta página está reservada para a apresentação pessoal do Maycon — trajetória,
+      formação, interesses e percurso acadêmico em mais detalhes. Conteúdo a ser
+      enviado e incorporado aqui.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PRODUÇÃO ACADÊMICA (artigos, livros, outras, parcerias) -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page" id="page-producao">
+  <div class="section-page">
+    <h2 class="section-title">Produção acadêmica</h2>
+    <p class="section-subtitle">Artigos, livros, capítulos, entrevistas e parcerias</p>
+
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="showTab('producao','artigos',this)">Artigos (19)</button>
+      <button class="tab-btn" onclick="showTab('producao','livros',this)">Livros e capítulos</button>
+      <button class="tab-btn" onclick="showTab('producao','outras',this)">Outras produções</button>
+      <button class="tab-btn" onclick="showTab('producao','parcerias',this)">Parcerias acadêmicas</button>
+    </div>
+
+    <!-- TAB ARTIGOS -->
+    <div class="tab-panel active" id="producao-artigos">
+      <div class="year-block">
+        <div class="year-label">2026</div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://revista.ubm.br/index.php/revistacientifica/article/view/2591" target="_blank">Feminicídio como acontecimento discursivo no Brasil recente: performances de gênero, gramáticas autoritárias e legitimação social da punição de mulheres (2021–2025)</a></div><div class="pub-meta-text">Com <b>Rogério Santos Júnior</b> · Revista Científica UBM</div></div></div>
+      </div>
+      <div class="year-block">
+        <div class="year-label">2025</div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/71767" target="_blank">A construção do ethos militar na modernidade</a></div><div class="pub-meta-text">Com <b>Luciana Marino do Nascimento</b> · Policromias</div></div></div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.23900/2359-1552v14n8-32-2025" target="_blank">A burocracia em nível de rua e a gestão escolar pública: democracia, cultura organizacional e justiça social</a></div><div class="pub-meta-text">Com <b>Helder Rodrigues Pereira</b></div></div></div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.56238/arev7n8-287" target="_blank">Das ruas ao papel: performance de gênero, estilos e subjetividades nos escritos de João do Rio e Amara Moira</a></div><div class="pub-meta-text">Com <b>Luciana Marino do Nascimento</b></div></div></div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.56238/ERR01v10n2-003" target="_blank">Alfabetização e letramento de alunos indígenas Mebêngôkre/Kayapo: um estudo de caso</a></div><div class="pub-meta-text">Com <b>Clebson de Oliveira Alves</b> e Ivânia Hilário Dias</div></div></div>
+      </div>
+      <div class="year-block">
+        <div class="year-label">2024</div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.52397/rcubm.v26i50.1807" target="_blank">Reflexões sobre a violência em ambiente escolar</a></div><div class="pub-meta-text">Revista Científica UBM</div></div></div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.52397/rcubm.v26i51.2121" target="_blank">Batalhas contra moinhos de vento: divergências entre estudos de discurso e de gramática</a></div><div class="pub-meta-text">Com <b>Andrey Istvan Mendes Carvalho</b></div></div></div>
+      </div>
+      <div class="year-block">
+        <div class="year-label">2022</div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.52397/rcubm.v0in.46.1302" target="_blank">Webinar Revista Científica do UBM – 25 anos: relatos sobre divulgação científica no Brasil</a></div><div class="pub-meta-text">Com <b>Rosane de Conceição Pereira</b> e Edson Seitti Miyata</div></div></div>
+      </div>
+      <div class="year-block">
+        <div class="year-label">2021</div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.52397/rcubm.v23i45.1025" target="_blank">Categorias ontológicas e afixos taxonômicos em línguas ameríndias</a></div><div class="pub-meta-text">Com <b>Evandro de Sousa Bonfim</b></div></div></div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.61358/policromias.v6i2.46723" target="_blank">As convulsões políticas brasileiras e a pesquisa de imagens, de discursos e de sons</a></div><div class="pub-meta-text">Com <b>Rodrigo Pereira da Silva Rosa</b> · Policromias</div></div></div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.61358/policromias.v6i2.46719" target="_blank">O "levante linguístico indígena" no Nordeste, no Espírito Santo e em Minas Gerais</a></div><div class="pub-meta-text">Com <b>Evandro de Sousa Bonfim</b> e Leandro Durazzo · Policromias</div></div></div>
+      </div>
+      <div class="year-block">
+        <div class="year-label">2020</div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.31513/linguistica.2020.v16nEsp.a21488" target="_blank">Composicionalidade em estruturas de evento do latim: preposições incorporadas como prefixos</a></div><div class="pub-meta-text">Com <b>Alessandro Boechat de Medeiros</b></div></div></div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.61358/policromias.v5i1.36901" target="_blank">Cinco anos de Policromias: percursos e movimentos no estudo do discurso, da imagem e do som</a></div><div class="pub-meta-text">Com <b>Tânia C. C. de Souza</b> e Rosane de Conceição Pereira · Policromias</div></div></div>
+      </div>
+      <div class="year-block">
+        <div class="year-label">2019</div>
+        <div class="pub-item"><div class="pub-dot"></div><div class="pub-body"><div class="pub-title-text"><a href="https://doi.org/10.29327/2.1373.1.2-4" target="_blank">A codificação de expressões espaciais nos sistemas de Jackendoff (1983) e de Pantcheva (2011)</a></div><div class="pub-meta-text">Linguística</div></div></div>
+      </div>
+    </div>
+
+    <!-- TAB LIVROS -->
+    <div class="tab-panel" id="producao-livros">
+      <div class="orient-heading">Organização de obras</div>
+      <div class="cards-grid" style="margin-bottom:2rem">
+        <div class="item-card"><div class="item-card-type">Organização</div><div class="item-card-title"><a href="https://ponteseditores.com.br/loja3/pontes-editores-home-2__trashed/lancamento/reconstrucao-de-sentidos-de-discursos-de-imagens-de-sons-e-de-protagonismo-de-linguas-indigenas-brasileiras-homenagem-a-tania-conceicao-clemente-de-souza/" target="_blank">(Re)construção de sentidos de discursos, de imagens, de sons e de protagonismo de línguas indígenas brasileiras</a></div><div class="item-card-meta">Homenagem a Tania C. C. de Souza · Pontes Editores</div></div>
+        <div class="item-card"><div class="item-card-type">Organização</div><div class="item-card-title">Semântica argumentativa: estudos dos sentidos para desenvolvimento de competências da língua portuguesa</div></div>
+        <div class="item-card"><div class="item-card-type">Organização</div><div class="item-card-title">Linguagem, pensamento e realidade: escritos selecionados de Benjamin Lee Whorf</div></div>
+      </div>
+      <div class="orient-heading">Capítulos de livros</div>
+      <div class="cards-grid">
+        <div class="item-card"><div class="item-card-type">Capítulo · 2025</div><div class="item-card-title"><a href="https://doi.org/10.56238/sevened2025.002-007" target="_blank">Considerations on the literacy process of Mebêngôkre/Kaiapó indigenous students</a></div><div class="item-card-meta">Com Clebson de Oliveira Alves e Ivânia Hilário Dias</div></div>
+        <div class="item-card"><div class="item-card-type">Capítulo</div><div class="item-card-title">Diálogos entre sintaxe formal e arquitetura do discurso: homenagem a Tania Conceição Clemente de Souza</div><div class="item-card-meta">Com Ana Suelly Arruda Câmara Cabral</div></div>
+        <div class="item-card"><div class="item-card-type">Capítulo · 2024</div><div class="item-card-title"><a href="https://doi.org/10.56238/sevened2024.015-014" target="_blank">Misalignments between discourse and grammar studies in Brazilian basic education</a></div><div class="item-card-meta">Com Andrey Istvan Mendes Carvalho</div></div>
+        <div class="item-card"><div class="item-card-type">Capítulo</div><div class="item-card-title"><a href="https://www.researchgate.net/publication/354086443" target="_blank">Percepções discentes sobre aprendizagem colaborativa</a></div><div class="item-card-meta">Com Leonardo T. F. R. Vilhagra</div></div>
+        <div class="item-card"><div class="item-card-type">Capítulo</div><div class="item-card-title"><a href="https://www.academia.edu/39169563" target="_blank">Análise do Discurso e linguística indígena</a></div><div class="item-card-meta">Com Tânia C. C. de Souza · Mercado de Letras</div></div>
+      </div>
+    </div>
+
+    <!-- TAB OUTRAS -->
+    <div class="tab-panel" id="producao-outras">
+      <div class="orient-heading">Entrevistas</div>
+      <div class="cards-grid" style="margin-bottom:2rem">
+        <div class="item-card"><div class="item-card-type">Entrevista</div><div class="item-card-title"><a href="https://doi.org/10.61358/policromias.2022.v7n3.56207" target="_blank">Leonor Werneck dos Santos</a></div><div class="item-card-meta">Com Ana Paula Q. Gomes e Isabella L. Pederneira</div></div>
+        <div class="item-card"><div class="item-card-type">Entrevista</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/46722" target="_blank">Comunidades indígenas do Nordeste e RN</a></div><div class="item-card-meta">Com Evandro de Souza Bonfim e Leandro Durazzo</div></div>
+        <div class="item-card"><div class="item-card-type">Entrevista</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/36899" target="_blank">Françoise Dufour</a></div><div class="item-card-meta">Policromias</div></div>
+        <div class="item-card"><div class="item-card-type">Entrevista</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/26333" target="_blank">Françoise Jost</a></div><div class="item-card-meta">Com Rosane da Conceição Pereira</div></div>
+        <div class="item-card"><div class="item-card-type">Entrevista</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/18562" target="_blank">José Luiz Fiorin</a></div><div class="item-card-meta">Com Viviane dos Ramos Soares</div></div>
+        <div class="item-card"><div class="item-card-type">Entrevista</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/14733" target="_blank">José Horta Nunes</a></div><div class="item-card-meta">Com Jonathan R. F. de Moura</div></div>
+      </div>
+      <div class="orient-heading">Dossiês</div>
+      <div class="cards-grid" style="margin-bottom:2rem">
+        <div class="item-card"><div class="item-card-type">Dossiê</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/issue/view/1806/1250" target="_blank">Políticas linguísticas entre povos indígenas do Nordeste, MG e ES</a></div><div class="item-card-meta">Com Evandro de Souza Bonfim e Leandro Durazzo</div></div>
+        <div class="item-card"><div class="item-card-type">Dossiê</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/31216" target="_blank">Ensino de língua portuguesa nas duas primeiras décadas do Século XXI</a></div><div class="item-card-meta">Com Leonor Werneck dos Santos</div></div>
+      </div>
+      <div class="orient-heading">Traduções</div>
+      <div class="cards-grid">
+        <div class="item-card"><div class="item-card-type">Tradução</div><div class="item-card-title"><a href="https://revistas.ufrj.br/index.php/policromias/article/view/29970" target="_blank">Análise Crítica do Discurso como raciocínio dialético</a></div><div class="item-card-meta">Norman Fairclough · Policromias</div></div>
+      </div>
+    </div>
+
+    <!-- TAB PARCERIAS -->
+    <div class="tab-panel" id="producao-parcerias">
+      <div class="orient-heading">Coautorias (13 pesquisadores)</div>
+      <div class="people-grid">
+        <a class="person-item" href="http://lattes.cnpq.br/6113207112992628" target="_blank">Clebson de Oliveira Alves</a>
+        <a class="person-item" href="http://lattes.cnpq.br/9247668950073325" target="_blank">Ana Suelly A. C. Cabral</a>
+        <a class="person-item" href="http://lattes.cnpq.br/9553903048538460" target="_blank">Andrey I. M. Carvalho</a>
+        <a class="person-item" href="http://lattes.cnpq.br/9012872558274565" target="_blank">Leonardo M. Durazzo</a>
+        <a class="person-item" href="http://lattes.cnpq.br/3683514276827059" target="_blank">Alessandro B. de Medeiros</a>
+        <a class="person-item" href="http://lattes.cnpq.br/8887335087367720" target="_blank">Edson Seiti Miyata</a>
+        <a class="person-item" href="http://lattes.cnpq.br/2584650402012722" target="_blank">Luciana M. do Nascimento</a>
+        <a class="person-item" href="http://lattes.cnpq.br/0545228994820970" target="_blank">Helder R. Pereira</a>
+        <a class="person-item" href="http://lattes.cnpq.br/4992147359275113" target="_blank">Rosane da C. Pereira</a>
+        <a class="person-item" href="http://lattes.cnpq.br/2024834828861093" target="_blank">Rodrigo P. da S. Rosa</a>
+        <a class="person-item" href="http://lattes.cnpq.br/1409130537051580" target="_blank">Rogério Santos Jr.</a>
+        <a class="person-item" href="http://lattes.cnpq.br/6982352616178640" target="_blank">Tânia C. C. de Souza</a>
+        <a class="person-item" href="http://lattes.cnpq.br/4979647547367518" target="_blank">Leonardo T. F. R. Vilhagra</a>
+      </div>
+
+      <div class="orient-heading">Orientações</div>
+      <div class="orient-section">
+        <div style="font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:8px">Aperfeiçoamento e especialização</div>
+        <ul class="orient-ul">
+          <li><a href="http://lattes.cnpq.br/5964345958738860" target="_blank">Silvania Borges da Silva</a> — "Cinderela" e "Cinderela Surda": uma leitura comparativa.</li>
+          <li>Camille Esteves de Melo Moura — O beijo como metáfora de despertar: leituras simbólicas na literatura infantil e juvenil.</li>
+        </ul>
+      </div>
+      <div class="orient-section">
+        <div style="font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:8px">Trabalhos de Conclusão de Curso</div>
+        <ul class="orient-ul">
+          <li><a href="http://lattes.cnpq.br/4958603362653899" target="_blank">Débora Mariano da Conceição</a> — Implantação de políticas linguísticas no cenário brasileiro.</li>
+          <li>Eurimar da Silva Costa — Alternância causativo-incoativa em verbos do português brasileiro.</li>
+        </ul>
+      </div>
+      <div class="orient-section">
+        <div style="font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:8px">Iniciação Científica</div>
+        <div class="orient-project">Os incêndios do Museu Nacional e da Catedral de Notre Dame</div>
+        <ul class="orient-ul">
+          <li><a href="http://lattes.cnpq.br/9461847091737855" target="_blank">Yasmim Cardoso R. Fernandes</a></li>
+          <li><a href="http://lattes.cnpq.br/3467983802990323" target="_blank">Andressa do Prado Wayand</a></li>
+          <li><a href="http://lattes.cnpq.br/1162082728289185" target="_blank">Juan da Victória O. Silva</a></li>
+        </ul>
+        <div class="orient-project">Política linguística e co-oficialização de línguas brasileiras</div>
+        <ul class="orient-ul">
+          <li><a href="http://lattes.cnpq.br/0018459021321004" target="_blank">Bárbara Victoria P. de Assis</a></li>
+          <li><a href="http://lattes.cnpq.br/3620684930173677" target="_blank">Marlon Costa de Souza</a></li>
+        </ul>
+        <div class="orient-project">Política linguística e ensino de línguas</div>
+        <ul class="orient-ul">
+          <li><a href="http://lattes.cnpq.br/8865334656390211" target="_blank">Maria Eduarda M. Coelho</a></li>
+          <li><a href="http://lattes.cnpq.br/1233686067710132" target="_blank">Alexandre Borges Batistella</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- LABORATÓRIO E PROJETOS DE PESQUISA -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page" id="page-laboratorio">
+  <div class="section-page">
+    <h2 class="section-title">Laboratório e projetos de pesquisa</h2>
+    <p class="section-subtitle">Conteúdo a ser definido pelo Maycon</p>
+    <div style="background:var(--white);border:1px dashed var(--border);border-radius:10px;padding:2rem;color:var(--ink3);font-size:14px;line-height:1.6">
+      Esta página está reservada para detalhar os projetos de pesquisa em andamento,
+      grupo de trabalho e eventuais parcerias institucionais de laboratório. Conteúdo
+      a ser enviado e incorporado aqui.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ÁREA RESTRITA -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page" id="page-restrita">
+  <div class="section-page">
+    <h2 class="section-title">Área restrita</h2>
+    <p class="section-subtitle">Materiais de disciplina disponíveis mediante cadastro</p>
+
+    <!-- LOCKED STATE -->
+    <div id="locked-content">
+      <div class="locked-box" style="margin-bottom:2.5rem">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-title">Conteúdo protegido</div>
+        <div class="locked-desc">Já tem uma senha de acesso? Digite abaixo para entrar.</div>
+        <form class="unlock-form" onsubmit="tryUnlock(event)">
+          <input type="password" id="unlock-password" placeholder="Senha de acesso" required>
+          <button type="submit">Entrar</button>
+        </form>
+        <div id="unlock-error" style="display:none;color:var(--danger);font-size:12.5px;margin-top:10px">Senha incorreta. Tente novamente.</div>
+      </div>
+
+      <div class="form-card" style="margin:0 auto">
+        <h3 style="font-family:var(--serif);font-size:1.2rem;color:var(--accent);margin-bottom:6px">Ainda não tem acesso?</h3>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:1.5rem;line-height:1.6">Preencha o formulário abaixo. O Maycon vai analisar e enviar a senha de acesso por e-mail.</p>
+
+        <form onsubmit="submitAreaRestrita(event)">
+          <div class="form-row">
+            <label>Nome completo</label>
+            <input type="text" name="nome" required>
+          </div>
+          <div class="form-row">
+            <label>E-mail</label>
+            <input type="email" name="email" required>
+          </div>
+          <div class="form-row">
+            <label>Instituição</label>
+            <input type="text" name="instituicao" required>
+          </div>
+          <div class="form-row">
+            <label>Curso / Disciplina</label>
+            <input type="text" name="curso_disciplina" required>
+          </div>
+          <input type="hidden" name="_subject" value="Solicitação de acesso — Área Restrita">
+          <button type="submit" class="form-submit">Solicitar acesso</button>
+          <div class="form-status" id="area-restrita-status"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- UNLOCKED STATE -->
+    <div id="unlocked-content" style="display:none">
+      <div style="background:var(--success-bg);color:var(--success);padding:12px 16px;border-radius:8px;font-size:13.5px;margin-bottom:2rem">
+        Acesso liberado. Os materiais abaixo estão organizados por disciplina.
+      </div>
+
+      <div class="discipline-grid">
+        <div class="discipline-card">
+          <div class="discipline-card-title">Introdução à Linguística</div>
+          <div class="discipline-files">
+            <div class="discipline-file"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/></svg> Apostila — Unidade 1</div>
+            <div class="discipline-file"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/></svg> Slides — Aula 1 a 4</div>
+          </div>
+        </div>
+        <div class="discipline-card">
+          <div class="discipline-card-title">Filosofia da Linguagem</div>
+          <div class="discipline-files">
+            <div class="discipline-file"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/></svg> Textos de apoio</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--ink3);margin-top:1.5rem">Os arquivos reais serão adicionados pelo Maycon conforme as disciplinas forem definidas.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CONTATO -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page" id="page-contato">
+  <div class="section-page">
+    <h2 class="section-title">Contato</h2>
+    <p class="section-subtitle">Correspondência acadêmica e institucional</p>
+
+    <div style="display:grid;grid-template-columns:1fr 380px;gap:2.5rem;align-items:start">
+      <div class="form-card">
+        <form onsubmit="submitContact(event)">
+          <div class="form-row">
+            <label>Nome completo</label>
+            <input type="text" name="nome" required>
+          </div>
+          <div class="form-row">
+            <label>E-mail</label>
+            <input type="email" name="email" required>
+          </div>
+          <div class="form-row">
+            <label>Instituição</label>
+            <input type="text" name="instituicao" required>
+          </div>
+          <div class="form-row">
+            <label>Curso / Disciplina</label>
+            <input type="text" name="curso_disciplina" required>
+          </div>
+          <div class="form-row">
+            <label>Mensagem</label>
+            <textarea name="descricao" required></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="Contato via site — Maycon Silva Aguiar">
+          <button type="submit" class="form-submit">Enviar mensagem</button>
+          <div class="form-status" id="contact-status"></div>
+        </form>
+      </div>
+
+      <div>
+        <div class="contact-wrap" style="grid-template-columns:1fr;margin-bottom:1.5rem">
+          <div class="contact-box">
+            <div class="contact-box-lbl">E-mail</div>
+            <div class="contact-box-val"><a href="mailto:mayconsilvaaguiar@gmail.com">mayconsilvaaguiar@gmail.com</a></div>
+          </div>
+          <div class="contact-box">
+            <div class="contact-box-lbl">Telefone institucional</div>
+            <div class="contact-box-val">(24) 3383-4900 — IFRJ</div>
+          </div>
+          <div class="contact-box">
+            <div class="contact-box-lbl">Endereço</div>
+            <div class="contact-box-val">IFRJ (Resende)<br>Av. Beira Rio, Montese · CEP 27541-030 · Resende, RJ</div>
+          </div>
+        </div>
+
+        <div class="contact-icons" style="flex-direction:column">
+          <a class="icon-link whatsapp" href="https://wa.me/5521979827136" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33C8.5 21.5 10.2 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.55 0-3-.42-4.25-1.15l-.3-.18-3.15.83.84-3.07-.2-.32A7.93 7.93 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg>
+            WhatsApp — (21) 97982-7136
+          </a>
+          <a class="icon-link" href="http://lattes.cnpq.br" target="_blank">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M5 2h5v5"/></svg>
+            Currículo Lattes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span>© 2026 Maycon Silva Aguiar</span>
+    <span>Instituto Federal do Rio de Janeiro</span>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

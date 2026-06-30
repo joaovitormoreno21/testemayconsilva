@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "title": "Por que lembrar o Dia Internacional da Língua Materna?",
+    "date": "2026-05-20",
+    "excerpt": "Uma reflexão sobre o que significa, na prática, defender uma língua materna em risco de desaparecimento — e por que essa data importa mais do que parece à primeira vista.",
+    "tags": ["política linguística", "educação"],
+    "content": "Uma reflexão sobre o que significa, na prática, defender uma língua materna em risco de desaparecimento — e por que essa data importa mais do que parece à primeira vista.\n\nEste é um texto de exemplo. Substitua pelo conteúdo real do post editando o arquivo posts.json.",
+    "comments_enabled": true
+  },
+  {
+    "id": "2",
+    "title": "Sobre sincronia e diacronia: revisitando Saussure",
+    "date": "2026-05-10",
+    "excerpt": "A distinção entre estudar a língua em um momento dado e estudar sua evolução no tempo continua sendo um dos pilares mais mal compreendidos da linguística moderna.",
+    "tags": ["teoria linguística", "história da linguística"],
+    "content": "A distinção entre estudar a língua em um momento dado e estudar sua evolução no tempo continua sendo um dos pilares mais mal compreendidos da linguística moderna.\n\nEste é um texto de exemplo. Substitua pelo conteúdo real do post editando o arquivo posts.json.",
+    "comments_enabled": true
+  },
+  {
+    "id": "3",
+    "title": "Línguas indígenas e o levante linguístico no Nordeste",
+    "date": "2026-04-28",
+    "excerpt": "Aspectos teóricos, políticos e etnográficos do movimento de revitalização linguística observado em comunidades do Nordeste, Espírito Santo e Minas Gerais.",
+    "tags": ["línguas indígenas", "política linguística"],
+    "content": "Aspectos teóricos, políticos e etnográficos do movimento de revitalização linguística observado em comunidades do Nordeste, Espírito Santo e Minas Gerais.\n\nEste é um texto de exemplo. Substitua pelo conteúdo real do post editando o arquivo posts.json.",
+    "comments_enabled": true
+  }
+]
