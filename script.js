@@ -188,6 +188,7 @@ async function submitContact(event) {
     instituicao: form.instituicao.value,
     curso_disciplina: form.curso_disciplina.value,
     mensagem: form.descricao.value,
+    to: 'mayconsilvaaguiar@gmail.com,maycon.aguiar@ifrj.edu.br',
     botcheck: '',
   };
 
