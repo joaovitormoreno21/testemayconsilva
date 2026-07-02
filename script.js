@@ -1,3 +1,5 @@
+import { loadComments, submitContactFirebase, submitAreaRestritaFirebase } from './firebase.js';
+
 // ════════════════════════════════════════════
 // CONFIGURAÇÃO
 // ════════════════════════════════════════════
@@ -141,7 +143,7 @@ function openPost(id) {
 
   if (post.comments_enabled) {
     document.getElementById('comments-section').style.display = 'block';
-    loadUtterances(post.id);
+    loadComments(post.id, commentsWrap);
   } else {
     document.getElementById('comments-section').style.display = 'none';
   }
@@ -155,16 +157,7 @@ function closePost() {
   window.scrollTo({ top: 0 });
 }
 
-function loadUtterances(postId) {
-  const script = document.createElement('script');
-  script.src = 'https://utteranc.es/client.js';
-  script.setAttribute('repo', CONFIG.GITHUB_REPO);
-  script.setAttribute('issue-term', 'post-' + postId);
-  script.setAttribute('theme', 'github-light');
-  script.setAttribute('crossorigin', 'anonymous');
-  script.async = true;
-  document.getElementById('utterances-comments').appendChild(script);
-}
+
 
 
 
@@ -176,43 +169,7 @@ async function submitContact(event) {
   const form = event.target;
   const statusEl = document.getElementById('contact-status');
   const btn = form.querySelector('.form-submit');
-
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-
-  const data = {
-    access_key: CONFIG.WEB3FORMS_KEY,
-    subject: 'Contato via site — Maycon Silva Aguiar',
-    from_name: form.nome.value,
-    email: form.email.value,
-    instituicao: form.instituicao.value,
-    curso_disciplina: form.curso_disciplina.value,
-    mensagem: form.descricao.value,
-    to: 'mayconsilvaaguiar@gmail.com,maycon.aguiar@ifrj.edu.br',
-    botcheck: '',
-  };
-
-  try {
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    const json = await res.json();
-    if (json.success) {
-      statusEl.textContent = 'Mensagem enviada! O Maycon vai receber por e-mail e responder em breve.';
-      statusEl.className = 'form-status show success';
-      form.reset();
-    } else {
-      throw new Error('Falha');
-    }
-  } catch (e) {
-    statusEl.textContent = 'Não foi possível enviar. Tente novamente ou use o e-mail direto abaixo.';
-    statusEl.className = 'form-status show error';
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'Enviar mensagem';
+  await submitContactFirebase(form, statusEl, btn);
 }
 
 // ════════════════════════════════════════════
@@ -223,28 +180,7 @@ async function submitAreaRestrita(event) {
   const form = event.target;
   const statusEl = document.getElementById('area-restrita-status');
   const btn = form.querySelector('.form-submit');
-
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-
-  try {
-    const res = await fetch(CONFIG.FORMSPREE_AREA_RESTRITA, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: new FormData(form)
-    });
-    if (res.ok) {
-      statusEl.textContent = 'Cadastro enviado! O Maycon vai te enviar a senha por e-mail em breve.';
-      statusEl.className = 'form-status show success';
-      form.reset();
-    } else { throw new Error(); }
-  } catch (e) {
-    statusEl.textContent = 'Não foi possível enviar. Tente novamente.';
-    statusEl.className = 'form-status show error';
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'Solicitar acesso';
+  await submitAreaRestritaFirebase(form, statusEl, btn);
 }
 
 function tryUnlock(event) {
