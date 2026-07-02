@@ -37,46 +37,33 @@ export async function loadComments(postId, containerEl) {
 
 function renderComments(comments, containerEl, postId) {
   const list = comments.map(c => `
-    <div style="border-bottom:1px solid var(--border2);padding:14px 0;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);
-          display:flex;align-items:center;justify-content:center;
-          color:#fff;font-size:13px;font-weight:500;flex-shrink:0;">
-          ${c.nome.charAt(0).toUpperCase()}
+    <article class="comment-item">
+      <div class="comment-avatar">${escHtml(c.nome || '?').charAt(0).toUpperCase()}</div>
+      <div class="comment-body">
+        <div class="comment-meta">
+          <strong>${escHtml(c.nome)}</strong>
+          <span>${formatTs(c.createdAt)}</span>
         </div>
-        <div>
-          <div style="font-size:13.5px;font-weight:500;color:var(--ink)">${escHtml(c.nome)}</div>
-          <div style="font-size:11.5px;color:var(--ink3)">${formatTs(c.createdAt)}</div>
-        </div>
+        <div class="comment-text">${escHtml(c.texto).replace(/\n/g,'<br>')}</div>
       </div>
-      <div style="font-size:14px;color:var(--ink2);line-height:1.65;padding-left:42px">
-        ${escHtml(c.texto).replace(/\n/g,'<br>')}
-      </div>
-    </div>
+    </article>
   `).join('');
 
   containerEl.innerHTML = `
-    <div style="margin-bottom:1.5rem">
+    <div class="comment-list">
       ${comments.length === 0
-        ? '<p style="color:var(--ink3);font-size:13px;padding:1rem 0">Seja o primeiro a comentar.</p>'
+        ? '<div class="comment-empty">Ainda não há comentários neste texto.</div>'
         : list}
     </div>
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
-      <div style="font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:12px">Deixar um comentário</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <input id="comment-nome" type="text" placeholder="Seu nome"
-          style="font-family:var(--sans);font-size:14px;padding:9px 12px;
-            border:1px solid var(--border);border-radius:7px;background:var(--bg)">
-        <textarea id="comment-texto" placeholder="Escreva seu comentário..." rows="4"
-          style="font-family:var(--sans);font-size:14px;padding:9px 12px;
-            border:1px solid var(--border);border-radius:7px;background:var(--bg);resize:vertical"></textarea>
-        <button onclick="submitComment('${postId}')"
-          style="align-self:flex-start;font-family:var(--sans);font-size:13.5px;
-            font-weight:500;color:#fff;background:var(--accent);border:none;
-            padding:9px 20px;border-radius:7px;cursor:pointer;">
+    <div class="comment-form-card">
+      <div class="comment-form-title">Escrever comentário</div>
+      <div class="comment-form-grid">
+        <input id="comment-nome" class="comment-input" type="text" placeholder="Seu nome">
+        <textarea id="comment-texto" class="comment-textarea" placeholder="Escreva seu comentário..." rows="4"></textarea>
+        <button onclick="submitComment('${postId}')" class="comment-submit">
           Publicar comentário
         </button>
-        <div id="comment-status" style="font-size:13px;display:none"></div>
+        <div id="comment-status" class="comment-status"></div>
       </div>
     </div>
   `;

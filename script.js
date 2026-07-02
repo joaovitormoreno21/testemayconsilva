@@ -236,6 +236,21 @@ window.closePost = closePost;
 window.submitContact = submitContact;
 window.submitAreaRestrita = submitAreaRestrita;
 window.tryUnlock = tryUnlock;
+window.showAccessForm = showAccessForm;
+window.hideAccessForm = hideAccessForm;
+
+function showAccessForm() {
+  const form = document.getElementById('access-request-form');
+  if (!form) return;
+  form.style.display = 'block';
+  form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function hideAccessForm() {
+  const form = document.getElementById('access-request-form');
+  if (!form) return;
+  form.style.display = 'none';
+}
 
 // ════════════════════════════════════════════
 // INIT

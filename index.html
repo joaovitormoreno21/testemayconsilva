@@ -33,7 +33,7 @@
   <div class="home-hero" style="max-width:1080px;margin:0 auto;padding:3.5rem 2.5rem 3rem;display:grid;grid-template-columns:340px 1fr;gap:4rem;align-items:start">
 
     <div style="position:relative">
-      <img src="foto.jpg" alt="Maycon Silva Aguiar" style="width:100%;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.12)">
+      <img src="https://mayconsilvaaguiar.com/wp-content/uploads/2026/04/servletrecuperafoto.jpg" alt="Maycon Silva Aguiar" style="width:100%;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.12)">
     </div>
 
     <div>
@@ -108,8 +108,12 @@
     <div class="blog-detail" id="blog-post-detail"></div>
 
     <div class="blog-detail comments-section" id="comments-section">
-      <h3 class="comments-title">Comentários</h3>
-      <p style="font-size:13px;color:var(--ink3);margin-bottom:1rem">Comentários podem ser feitos de forma anônima ou identificada.</p>
+      <div class="comments-header">
+        <div>
+          <h3 class="comments-title">Comentários</h3>
+          <p class="comments-subtitle">Compartilhe sua leitura ou dúvida sobre o texto.</p>
+        </div>
+      </div>
       <div id="utterances-comments"></div>
     </div>
   </div>
@@ -317,9 +321,23 @@
         <div id="unlock-error" style="display:none;color:var(--danger);font-size:12.5px;margin-top:10px">Senha incorreta. Tente novamente.</div>
       </div>
 
-      <div class="form-card" style="margin:0 auto">
-        <h3 style="font-family:var(--serif);font-size:1.2rem;color:var(--accent);margin-bottom:6px">Ainda não tem acesso?</h3>
-        <p style="font-size:13px;color:var(--ink3);margin-bottom:1.5rem;line-height:1.6">Preencha o formulário abaixo. O Maycon vai analisar e enviar a senha de acesso por e-mail.</p>
+      <div class="access-request-card">
+        <div class="access-request-icon">✉️</div>
+        <div class="access-request-content">
+          <h3>Ainda não tem acesso?</h3>
+          <p>Solicite a liberação para acessar os materiais disponíveis na área restrita.</p>
+        </div>
+        <button type="button" class="access-request-btn" onclick="showAccessForm()">Pedir acesso</button>
+      </div>
+
+      <div class="form-card access-form-card" id="access-request-form" style="display:none">
+        <div class="form-card-header">
+          <div>
+            <h3>Solicitação de acesso</h3>
+            <p>Preencha seus dados para análise e envio da senha por e-mail.</p>
+          </div>
+          <button type="button" class="form-close-btn" onclick="hideAccessForm()" aria-label="Fechar formulário">×</button>
+        </div>
 
         <form onsubmit="submitAreaRestrita(event)">
           <div class="form-row">
@@ -339,7 +357,7 @@
             <input type="text" name="curso_disciplina" required>
           </div>
           <input type="hidden" name="_subject" value="Solicitação de acesso — Área Restrita">
-          <button type="submit" class="form-submit">Solicitar acesso</button>
+          <button type="submit" class="form-submit">Enviar solicitação</button>
           <div class="form-status" id="area-restrita-status"></div>
         </form>
       </div>
