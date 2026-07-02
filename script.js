@@ -1,19 +1,18 @@
 // ════════════════════════════════════════════
-// CONFIGURAÇÃO — edite aqui os links de integração
+// CONFIGURAÇÃO
 // ════════════════════════════════════════════
 const CONFIG = {
-  // Formspree: crie uma conta gratuita em formspree.io,
-  // crie um "form" e cole o endpoint aqui (formato: https://formspree.io/f/xxxxxxx)
-  FORMSPREE_CONTATO: 'https://formspree.io/f/SEU_ID_AQUI',
-  FORMSPREE_AREA_RESTRITA: 'https://formspree.io/f/SEU_ID_AQUI_2',
-  FORMSPREE_NEWSLETTER: 'https://formspree.io/f/SEU_ID_AQUI_3',
+  // Web3Forms — contato (coloque sua access_key abaixo)
+  WEB3FORMS_KEY: '0516b733-8803-4697-97d6-81293f0b6bad',
 
-  // Senha da área restrita (mude periodicamente, avise os alunos)
-  // Em produção real, isso deveria estar no backend — ver nota de segurança no README
+  // Utterances — comentários via GitHub Issues (100% gratuito, sem anúncios)
+  GITHUB_REPO: 'joaovitormoreno21/testemayconsilva',
+
+  // Área restrita
+  FORMSPREE_AREA_RESTRITA: 'https://formspree.io/f/SEU_ID_AQUI',
   SENHA_AREA_RESTRITA: 'linguistica2026',
 
   EMAIL_PRINCIPAL: 'mayconsilvaaguiar@gmail.com',
-  EMAIL_SECUNDARIO: 'maycon.aguiar@ifrj.edu.br',
   WHATSAPP: '5521979827136',
 };
 
@@ -26,7 +25,6 @@ function showPage(name, link) {
   document.getElementById('page-' + name).classList.add('active');
   if (link) link.classList.add('active');
   window.scrollTo({ top: 0 });
-
   if (name === 'blog') renderBlogList();
 }
 
@@ -49,7 +47,6 @@ async function loadPosts() {
     ALL_POSTS = await res.json();
     ALL_POSTS.sort((a, b) => new Date(b.date) - new Date(a.date));
   } catch (e) {
-    console.error('Erro ao carregar posts:', e);
     ALL_POSTS = [];
   }
 }
@@ -72,7 +69,6 @@ function renderBlogList() {
   const sidebarEl = document.getElementById('blog-tag-cloud');
   if (!listEl) return;
 
-  // Render tag cloud once
   if (sidebarEl && !sidebarEl.dataset.rendered) {
     const tags = getAllTags();
     sidebarEl.innerHTML = tags.map(t =>
@@ -81,7 +77,6 @@ function renderBlogList() {
     sidebarEl.dataset.rendered = 'true';
   }
 
-  // Filter posts
   let filtered = ALL_POSTS;
   if (currentBlogFilter.search) {
     const q = currentBlogFilter.search.toLowerCase();
@@ -141,12 +136,12 @@ function openPost(id) {
     <div class="blog-detail-body">${paragraphs}</div>
   `;
 
-  // Giscus comments (only if enabled for this post)
-  const commentsWrap = document.getElementById('giscus-comments');
+  const commentsWrap = document.getElementById('utterances-comments');
   commentsWrap.innerHTML = '';
+
   if (post.comments_enabled) {
     document.getElementById('comments-section').style.display = 'block';
-    loadGiscus(post.id);
+    loadUtterances(post.id);
   } else {
     document.getElementById('comments-section').style.display = 'none';
   }
@@ -160,59 +155,21 @@ function closePost() {
   window.scrollTo({ top: 0 });
 }
 
-function loadGiscus(postId) {
-  // Giscus permite comentários anônimos via GitHub Discussions, sem precisar de backend.
-  // Para ativar de verdade: crie um repo público no GitHub, ative Discussions,
-  // configure em giscus.app e cole o script gerado aqui no lugar deste placeholder.
-  const wrap = document.getElementById('giscus-comments');
-  wrap.innerHTML = `
-    <div style="background:var(--bg);border:1px dashed var(--border);border-radius:8px;padding:1.5rem;font-size:13px;color:var(--ink3);line-height:1.6;">
-      <strong style="color:var(--ink2)">Comentários via Giscus (configuração pendente)</strong><br>
-      Para ativar comentários reais (anônimos ou identificados) aqui, configure o Giscus em
-      <a href="https://giscus.app" target="_blank">giscus.app</a> usando um repositório GitHub
-      com Discussions ativado, e cole o script gerado no lugar deste aviso, dentro de script.js
-      na função loadGiscus().
-    </div>
-  `;
+function loadUtterances(postId) {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', CONFIG.GITHUB_REPO);
+  script.setAttribute('issue-term', 'post-' + postId);
+  script.setAttribute('theme', 'github-light');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  document.getElementById('utterances-comments').appendChild(script);
 }
 
-// ════════════════════════════════════════════
-// NEWSLETTER (seguir blog)
-// ════════════════════════════════════════════
-async function submitFollow(event) {
-  event.preventDefault();
-  const form = event.target;
-  const email = form.email.value;
-  const statusEl = document.getElementById('follow-status');
-  const btn = form.querySelector('button');
 
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-
-  try {
-    const res = await fetch(CONFIG.FORMSPREE_NEWSLETTER, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: new FormData(form)
-    });
-    if (res.ok) {
-      statusEl.textContent = 'Inscrito! Você receberá um e-mail a cada novo post.';
-      statusEl.className = 'form-status show success';
-      form.reset();
-    } else {
-      throw new Error('Falha no envio');
-    }
-  } catch (e) {
-    statusEl.textContent = 'Não foi possível inscrever. Tente novamente.';
-    statusEl.className = 'form-status show error';
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'Seguir';
-}
 
 // ════════════════════════════════════════════
-// FORMULÁRIO DE CONTATO
+// FORMULÁRIO DE CONTATO — Web3Forms
 // ════════════════════════════════════════════
 async function submitContact(event) {
   event.preventDefault();
@@ -223,18 +180,30 @@ async function submitContact(event) {
   btn.disabled = true;
   btn.textContent = 'Enviando...';
 
+  const data = {
+    access_key: CONFIG.WEB3FORMS_KEY,
+    subject: 'Contato via site — Maycon Silva Aguiar',
+    from_name: form.nome.value,
+    email: form.email.value,
+    instituicao: form.instituicao.value,
+    curso_disciplina: form.curso_disciplina.value,
+    mensagem: form.descricao.value,
+    botcheck: '',
+  };
+
   try {
-    const res = await fetch(CONFIG.FORMSPREE_CONTATO, {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: new FormData(form)
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
     });
-    if (res.ok) {
+    const json = await res.json();
+    if (json.success) {
       statusEl.textContent = 'Mensagem enviada! O Maycon vai receber por e-mail e responder em breve.';
       statusEl.className = 'form-status show success';
       form.reset();
     } else {
-      throw new Error('Falha no envio');
+      throw new Error('Falha');
     }
   } catch (e) {
     statusEl.textContent = 'Não foi possível enviar. Tente novamente ou use o e-mail direto abaixo.';
@@ -246,7 +215,7 @@ async function submitContact(event) {
 }
 
 // ════════════════════════════════════════════
-// ÁREA RESTRITA
+// ÁREA RESTRITA — Formspree (mantido)
 // ════════════════════════════════════════════
 async function submitAreaRestrita(event) {
   event.preventDefault();
@@ -264,14 +233,12 @@ async function submitAreaRestrita(event) {
       body: new FormData(form)
     });
     if (res.ok) {
-      statusEl.textContent = 'Cadastro enviado! O Maycon vai te enviar a senha de acesso por e-mail em breve.';
+      statusEl.textContent = 'Cadastro enviado! O Maycon vai te enviar a senha por e-mail em breve.';
       statusEl.className = 'form-status show success';
       form.reset();
-    } else {
-      throw new Error('Falha no envio');
-    }
+    } else { throw new Error(); }
   } catch (e) {
-    statusEl.textContent = 'Não foi possível enviar o cadastro. Tente novamente.';
+    statusEl.textContent = 'Não foi possível enviar. Tente novamente.';
     statusEl.className = 'form-status show error';
   }
 
@@ -283,7 +250,6 @@ function tryUnlock(event) {
   event.preventDefault();
   const input = document.getElementById('unlock-password');
   const errorEl = document.getElementById('unlock-error');
-
   if (input.value === CONFIG.SENHA_AREA_RESTRITA) {
     document.getElementById('locked-content').style.display = 'none';
     document.getElementById('unlocked-content').style.display = 'block';
@@ -299,8 +265,6 @@ function tryUnlock(event) {
 // ════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   loadPosts();
-
-  // Auto-unlock if already unlocked this session
   if (sessionStorage.getItem('area_unlocked') === 'true') {
     const locked = document.getElementById('locked-content');
     const unlocked = document.getElementById('unlocked-content');
