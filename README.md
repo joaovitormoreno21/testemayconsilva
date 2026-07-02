@@ -1,121 +1,114 @@
-# Site Maycon Silva Aguiar — Guia de Deploy e Configuração
+# Site Maycon Silva Aguiar — Deploy e Configuração
 
 ## Estrutura dos arquivos
 
+```text
+index.html   → estrutura do site e páginas
+style.css    → visual do site
+script.js    → navegação, blog, busca, abas e área restrita
+firebase.js  → comentários, formulário de contato e solicitação de acesso
+posts.json   → posts do blog
 ```
-index.html      → o site inteiro (todas as 6 abas)
-style.css       → todo o visual
-script.js       → toda a lógica (blog, busca, área restrita, formulários)
-posts.json      → os posts do blog (edite SÓ este arquivo para novo post)
-COMO_EDITAR_BLOG.md → guia para o Maycon publicar posts sozinho
-```
+
+## Correções aplicadas nesta versão
+
+- Menu e botões corrigidos para funcionar com `script type="module"`.
+- Imagem principal alterada para usar a foto já hospedada no site atual do Maycon.
+- Blog com carregamento mais seguro do `posts.json`.
+- Conteúdo dos posts escapado para evitar problemas com HTML digitado no JSON.
+- README atualizado para refletir o uso real de Firebase + Web3Forms.
 
 ## 1. Hospedar no GitHub Pages
 
-1. Crie um repositório novo no GitHub (pode ser público)
-2. Suba estes 5 arquivos para a raiz do repositório
-3. Vá em **Settings → Pages**
-4. Em "Source", selecione a branch `main` e pasta `/ (root)`
-5. Salve — em alguns minutos o site estará em `https://seuusuario.github.io/nome-do-repo`
+1. Crie um repositório novo no GitHub.
+2. Suba os arquivos para a raiz do repositório.
+3. Vá em **Settings → Pages**.
+4. Em **Source**, selecione a branch `main` e a pasta `/ (root)`.
+5. Salve. O site ficará disponível em algo como:
 
-## 2. Conectar o domínio que o Maycon comprou
+```text
+https://seuusuario.github.io/nome-do-repositorio
+```
 
-1. No mesmo painel **Settings → Pages**, em "Custom domain", digite o domínio
-   (ex: `mayconsilvaaguiar.com`)
-2. No painel do WordPress.com onde o domínio foi comprado, vá em
-   **Domínios → DNS** e adicione estes registros:
+## 2. Conectar o domínio comprado no WordPress.com
 
-   ```
-   Tipo: A      | Nome: @  | Valor: 185.199.108.153
-   Tipo: A      | Nome: @  | Valor: 185.199.109.153
-   Tipo: A      | Nome: @  | Valor: 185.199.110.153
-   Tipo: A      | Nome: @  | Valor: 185.199.111.153
-   Tipo: CNAME  | Nome: www | Valor: seuusuario.github.io
-   ```
+No GitHub Pages, em **Settings → Pages → Custom domain**, digite:
 
-3. Aguarde a propagação (pode levar até 24h, geralmente é mais rápido)
-4. No GitHub Pages, marque "Enforce HTTPS" depois que o domínio propagar
+```text
+mayconsilvaaguiar.com
+```
 
-## 3. Ativar os formulários (Formspree — gratuito)
+Depois, no painel do WordPress.com onde o domínio foi comprado, entre em **Domínios → DNS** e configure:
 
-O site usa [Formspree](https://formspree.io) para os 3 formulários: contato,
-área restrita e newsletter. É gratuito até 50 envios/mês, suficiente para
-começar.
+```text
+Tipo: A      | Nome: @   | Valor: 185.199.108.153
+Tipo: A      | Nome: @   | Valor: 185.199.109.153
+Tipo: A      | Nome: @   | Valor: 185.199.110.153
+Tipo: A      | Nome: @   | Valor: 185.199.111.153
+Tipo: CNAME  | Nome: www | Valor: seuusuario.github.io
+```
 
-1. Crie uma conta gratuita em formspree.io
-2. Crie 3 forms separados: "Contato", "Área Restrita", "Newsletter"
-3. Configure cada um para notificar:
-   - `mayconsilvaaguiar@gmail.com`
-   - `maycon.aguiar@ifrj.edu.br`
-4. Copie o endpoint de cada form (formato `https://formspree.io/f/xxxxxxx`)
-5. Abra o arquivo `script.js`, no topo, e cole nos campos:
+Depois que propagar, marque **Enforce HTTPS** no GitHub Pages.
+
+A propagação pode levar algumas horas.
+
+## 3. Foto principal
+
+Nesta versão, a imagem principal usa a foto já hospedada no site atual:
+
+```text
+https://mayconsilvaaguiar.com/wp-content/uploads/2026/04/servletrecuperafoto.jpg
+```
+
+Se quiser deixar o site 100% independente do WordPress, baixe essa imagem, coloque na pasta do projeto com o nome `foto.jpg` e altere o `src` da imagem no `index.html`.
+
+## 4. Blog
+
+Os posts ficam em `posts.json`.
+
+Para adicionar um post, copie o modelo abaixo:
+
+```json
+{
+  "id": "4",
+  "title": "Título do post",
+  "date": "2026-06-01",
+  "excerpt": "Resumo curto do post.",
+  "tags": ["tema 1", "tema 2"],
+  "content": "Texto completo do post. Use duas quebras de linha para separar parágrafos.",
+  "comments_enabled": true
+}
+```
+
+Evite repetir IDs.
+
+## 5. Comentários, contato e área restrita
+
+O arquivo `firebase.js` usa Firebase/Firestore para:
+
+- comentários do blog;
+- mensagens de contato;
+- solicitações de acesso à área restrita.
+
+Ele também envia notificações por e-mail via Web3Forms.
+
+Para migrar para uma conta do Maycon, troque o bloco `firebaseConfig` no arquivo `firebase.js` e revise a chave do Web3Forms usada no mesmo arquivo.
+
+## 6. Área restrita
+
+A senha atual está em `script.js`:
 
 ```js
-FORMSPREE_CONTATO: 'https://formspree.io/f/SEU_ID_AQUI',
-FORMSPREE_AREA_RESTRITA: 'https://formspree.io/f/SEU_ID_AQUI_2',
-FORMSPREE_NEWSLETTER: 'https://formspree.io/f/SEU_ID_AQUI_3',
+SENHA_AREA_RESTRITA: 'linguistica2026'
 ```
 
-## 4. Ativar comentários (Giscus — gratuito)
+Como o site é estático, essa senha fica visível no código-fonte. Ela serve como uma barreira simples para acesso casual, mas não é segurança real.
 
-Comentários no blog usam [Giscus](https://giscus.app), que funciona via
-GitHub Discussions — sem precisar de servidor próprio, e permite comentário
-anônimo (usando uma conta GitHub genérica) ou identificado.
+Para controle de acesso com login individual, seria necessário usar backend/autenticação real.
 
-1. No repositório do site, vá em **Settings → General → Features** e ative
-   "Discussions"
-2. Acesse [giscus.app](https://giscus.app), cole a URL do seu repositório
-3. Configure as opções (recomendo: mapeamento por "pathname", tema "light")
-4. Copie o script gerado no final da página
-5. Abra `script.js`, encontre a função `loadGiscus()` e substitua o
-   placeholder pelo script copiado
+## 7. Pontos que ainda precisam ser revisados antes da entrega final
 
-## 5. Área restrita — nota de segurança importante
-
-A senha da área restrita está configurada em `script.js`:
-
-```js
-SENHA_AREA_RESTRITA: 'linguistica2026',
-```
-
-**Atenção:** como o site é 100% estático (sem servidor), essa senha fica
-visível para qualquer pessoa que abrir o código-fonte da página (clicar com
-botão direito → "Ver código-fonte"). Isso é adequado para barrar acesso
-casual, mas não é segurança real contra alguém com conhecimento técnico.
-
-Para a função pretendida — controlar quem acessa materiais de disciplina —
-isso é suficiente na prática, já que o fluxo real de controle é o cadastro
-manual e o Maycon decidindo quem recebe a senha. Mas é importante que ele
-saiba dessa limitação.
-
-Se no futuro for necessário um controle mais rígido (login individual por
-pessoa, por exemplo), seria necessário migrar para uma solução com backend
-real — fora do escopo do GitHub Pages puro.
-
-Para trocar a senha: edite a linha acima em `script.js` e suba a alteração
-no GitHub.
-
-## 6. Testando localmente antes de subir
-
-Para ver o site funcionando no seu computador antes de publicar:
-
-```bash
-cd pasta-do-site
-python3 -m http.server 8000
-```
-
-Depois abra `http://localhost:8000` no navegador. O blog só carrega
-corretamente assim (servidor local) ou já publicado no GitHub Pages —
-abrir o `index.html` direto clicando duas vezes não carrega o `posts.json`
-por restrição de segurança do navegador.
-
-## 7. Próximos passos pendentes
-
-Estas páginas estão com placeholder aguardando conteúdo do Maycon:
-
-- **Quem sou eu** — apresentação pessoal detalhada
-- **Laboratório e projetos de pesquisa** — projetos em andamento
-- **Área restrita** — lista real de disciplinas e arquivos
-
-Quando o conteúdo chegar, essas seções são editadas diretamente no
-`index.html`, seguindo o mesmo padrão visual das outras abas.
+- Conferir os links reais de Lattes, ORCID, ResearchGate e Academia.edu.
+- Confirmar se o WhatsApp e e-mails estão corretos.
+- Substituir os textos de placeholder nas páginas "Quem sou eu" e "Laboratório e projetos de pesquisa".
+- Revisar as regras do Firestore para permitir as leituras/gravações necessárias.

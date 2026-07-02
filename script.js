@@ -4,14 +4,8 @@ import { loadComments, submitContactFirebase, submitAreaRestritaFirebase } from 
 // CONFIGURAÇÃO
 // ════════════════════════════════════════════
 const CONFIG = {
-  // Web3Forms — contato (coloque sua access_key abaixo)
-  WEB3FORMS_KEY: '0516b733-8803-4697-97d6-81293f0b6bad',
-
-  // Utterances — comentários via GitHub Issues (100% gratuito, sem anúncios)
-  GITHUB_REPO: 'joaovitormoreno21/testemayconsilva',
-
-  // Área restrita
-  FORMSPREE_AREA_RESTRITA: 'https://formspree.io/f/SEU_ID_AQUI',
+  // Configurações gerais do site
+  // Formulários e comentários estão integrados via Firebase/Web3Forms no arquivo firebase.js
   SENHA_AREA_RESTRITA: 'linguistica2026',
 
   EMAIL_PRINCIPAL: 'mayconsilvaaguiar@gmail.com',
@@ -42,15 +36,31 @@ function showTab(section, tab, btn) {
 // BLOG — carregar posts do posts.json
 // ════════════════════════════════════════════
 let ALL_POSTS = [];
+let POSTS_LOADED = false;
+let POSTS_LOADING = null;
 
 async function loadPosts() {
-  try {
-    const res = await fetch('posts.json');
-    ALL_POSTS = await res.json();
-    ALL_POSTS.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } catch (e) {
-    ALL_POSTS = [];
-  }
+  if (POSTS_LOADED) return ALL_POSTS;
+  if (POSTS_LOADING) return POSTS_LOADING;
+
+  POSTS_LOADING = fetch('posts.json')
+    .then(res => {
+      if (!res.ok) throw new Error('Não foi possível carregar posts.json');
+      return res.json();
+    })
+    .then(posts => {
+      ALL_POSTS = posts;
+      ALL_POSTS.sort((a, b) => new Date(b.date) - new Date(a.date));
+      POSTS_LOADED = true;
+      return ALL_POSTS;
+    })
+    .catch(() => {
+      ALL_POSTS = [];
+      POSTS_LOADED = true;
+      return ALL_POSTS;
+    });
+
+  return POSTS_LOADING;
 }
 
 function formatDate(dateStr) {
@@ -70,6 +80,12 @@ function renderBlogList() {
   const listEl = document.getElementById('blog-posts-list');
   const sidebarEl = document.getElementById('blog-tag-cloud');
   if (!listEl) return;
+
+  if (!POSTS_LOADED) {
+    listEl.innerHTML = '<p style="color:var(--ink3);padding:2rem 0;">Carregando posts...</p>';
+    loadPosts().then(renderBlogList);
+    return;
+  }
 
   if (sidebarEl && !sidebarEl.dataset.rendered) {
     const tags = getAllTags();
@@ -128,7 +144,10 @@ function openPost(id) {
   document.getElementById('page-blog').classList.remove('active');
   document.getElementById('page-blog-post').classList.add('active');
 
-  const paragraphs = post.content.split('\n\n').map(p => `<p>${p}</p>`).join('');
+  const paragraphs = post.content
+    .split('\n\n')
+    .map(p => `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`)
+    .join('');
 
   document.getElementById('blog-post-detail').innerHTML = `
     <button class="blog-back" onclick="closePost()">← Voltar para o blog</button>
@@ -173,7 +192,7 @@ async function submitContact(event) {
 }
 
 // ════════════════════════════════════════════
-// ÁREA RESTRITA — Formspree (mantido)
+// ÁREA RESTRITA — Firebase/Web3Forms
 // ════════════════════════════════════════════
 async function submitAreaRestrita(event) {
   event.preventDefault();
@@ -196,6 +215,27 @@ function tryUnlock(event) {
     input.value = '';
   }
 }
+
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Disponibiliza funções para os onclick do HTML mesmo usando script type="module"
+window.showPage = showPage;
+window.showTab = showTab;
+window.searchBlog = searchBlog;
+window.filterByTag = filterByTag;
+window.openPost = openPost;
+window.closePost = closePost;
+window.submitContact = submitContact;
+window.submitAreaRestrita = submitAreaRestrita;
+window.tryUnlock = tryUnlock;
 
 // ════════════════════════════════════════════
 // INIT
